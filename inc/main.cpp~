@@ -1,0 +1,12 @@
+#include <iostream>
+#include "Prostopadloscian.hh"
+
+using namespace std;
+
+int main{
+
+  Prostopadloscian(1,2,3) P;
+  cout << P;
+  
+  return 0;
+}

@@ -1,0 +1,8 @@
+#ifndef IOBIEKT_RYSOWALNY_HH
+#define IOBIEKT_RYSOWALNY_HH
+
+class IObiektRysowalny {
+public:
+  virtual void rysuj() = 0;
+}
+#endif
