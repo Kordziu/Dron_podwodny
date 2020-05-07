@@ -14,5 +14,7 @@ public:
   Bryla(drawNS::APIGnuPlot3D * Obiekt, Wektor3D w1/*, MacierzOb m1*/): IObiektRysowalny(Obiekt), srodek(w1)/*, orientacja(m1)*/{}
   virtual void rysuj() = 0;
   virtual ~Bryla(){}
+  virtual ruch(double odleglosc, double kat) = 0;
+  virtual obrot(double kat) = 0;
 };
 #endif
