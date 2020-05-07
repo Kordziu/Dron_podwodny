@@ -4,6 +4,7 @@
 
 
 class IObiektRysowalny {
+protected:
   std::shared_ptr<drawNS::Draw3DAPI> Obiekt;
 public:
   IObiektRysowalny(drawNS::Draw3DAPI * obiekt): Obiekt(obiekt){}

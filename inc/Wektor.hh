@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <iostream>
+#include "Dr3D_gnuplot_api.hh"
 
 using namespace std;
 
@@ -130,6 +131,14 @@ public:
     }
     return tab[index];
   };
+
+  ////////////////// Konwersja
+  operator drawNS::Point3D() const
+  {
+    return drawNS::Point3D(tab[0], tab[1], tab[2]);
+  };
+
+  
 };
 
 /////////////// mnozenie liczba*wektor ///////////////

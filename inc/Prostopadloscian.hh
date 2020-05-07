@@ -1,17 +1,25 @@
-#ifndef BRYLA_HH
-#define BRYLA_HH
+#ifndef PROSTO_HH
+#define PROSTO_HH
+#include "Bryla.hh"
+#include "Wektor.hh"
 
 using namespace std;
 class Prostopadloscian : public Bryla {
 protected:
-  vector<vector<Wektor3D>> wierzcholki;
+
+  SWektor<double, 3> wierzcholki[8];
 
 public:
-  Prostopadloscian();
-  Prostopadloscian(double x, double y, double z)
-  {//vector<Wektor3D(x,0,0), Wektor3D(0,0,0), Wektor3D(x,y,0), Wektor3D(0,y,0)>
+  Prostopadloscian(drawNS::APIGnuPlot3D * Obiekt, SWektor<double,3> *tab): IObiektRysowalny(Obiekt){
+    for(int i = 0; i<8; i++){
+      wierzcholki[i] = tab[i];
+    }
+  };
+
+/*Prostopadloscian(double x, double y, double z)
+  {
     for(int i=0; i <= 1; i++) {
-     vector<Wektor3D> plaszczyzna;
+      vector<SWektor<double,3>> plaszczyzna;
      for (int j=0; j <= 1; j++){
        for (int k=0; k<=1; k++){
 	 plaszczyzna.push_back(Wektor3D(i*x, j*y, k*z));
@@ -20,6 +28,11 @@ public:
      wierzcholki.push_back(plaszczyzna);
     }
   }
-  void rysuj();
+*/
+
+  void rysuj(){
+    Obiekt->draw_polyhedron(vector<vector<drawNS::Point3D>>{{wierzcholki[0],wierzcholki[1],wierzcholki[2],wierzcholki[3]},{wierzcholki[4],wierzcholki[5],wierzcholki[6],wierzcholki[7]}},"blue")
+      Obiekt->redraw();
+  };
 };
 #endif
