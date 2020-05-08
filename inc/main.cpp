@@ -1,10 +1,8 @@
 #include <iostream>
-//#include "Prostopadloscian.hh"
 #include "Bryla.hh"
 #include "IObiektRysowalny.hh"
 #include "Prostopadloscian.hh"
 #include "Wektor.hh"
-#include "Wektor3D.hh"
 
 using namespace std;
 
@@ -14,22 +12,30 @@ void wait4key() {
   } while(std::cin.get() != 'n');
 }
 
-int main(){
-  
+int main(){  
   drawNS::APIGnuPlot3D * O1 = new drawNS::APIGnuPlot3D(-10,10,-10,10,-10,10,-1);
-  Wektor3D tab[8];
-  Wektor3D srod;
+  SWektor<double,3> tab[8];
+  SWektor<double,3> srod;
+  MacierzOb orient;
+  
+  double p[3]={3,3,3};
+  SWektor<double,3> przesun(p);
+
+  double kat = 45;
   
   for(int i=0; i<8;i++)
     {
       cin >> tab[i];
     }
-  
-  Prostopadloscian pr(O1, tab, srod);
+  Prostopadloscian pr(O1, tab, srod, orient);
   pr.rysuj();
-
-  cout << srod;
-  
+  wait4key();
+  pr.ruch(przesun);
+  wait4key();
+  pr.obrot(kat);
+  wait4key();
+  pr.ruch(przesun);
   wait4key();
   return 0;
 }
+

@@ -18,7 +18,8 @@ public:
   {for (int i = 0; i < Swymiar; i++){tab[i] = 0.0;}};
   explicit SWektor(Styp * tab)
   {for (int i = 0; i < Swymiar; i++){this->tab[i] = tab[i];}};
-
+  SWektor(double x, double y, double z){tab[0]=x; tab[1]=y; tab[2]=z;}; //dla 3D
+  
   /////////////// dodaj i podstaw ///////////////
   const SWektor & operator += (const SWektor & w1)
   {
