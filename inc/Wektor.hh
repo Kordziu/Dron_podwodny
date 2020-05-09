@@ -78,6 +78,17 @@ public:
     return wynik;
   };
 
+  /////////////// wektor / liczba ///////////////
+  SWektor operator / (Styp liczba) const
+  {
+    SWektor<Styp, Swymiar> wynik;
+    for(int i = 0; i < Swymiar; i++)
+    {
+      wynik[i] = this->tab[i] / liczba;
+    }
+    return wynik;
+  };
+  
   /////////////// operator równości ///////////////
   bool operator == (const SWektor & w1) const
   {  

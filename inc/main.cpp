@@ -3,6 +3,7 @@
 #include "IObiektRysowalny.hh"
 #include "Prostopadloscian.hh"
 #include "Wektor.hh"
+#include "Dron.hh"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ void wait4key() {
 }
 
 int main(){  
-  drawNS::APIGnuPlot3D * O1 = new drawNS::APIGnuPlot3D(-10,10,-10,10,-10,10,-1);
+  drawNS::APIGnuPlot3D * O1 = new drawNS::APIGnuPlot3D(-100,100,-100,100,-100,100,-1);
   SWektor<double,3> tab[8];
   SWektor<double,3> srod;
   MacierzOb orient;
@@ -22,12 +23,21 @@ int main(){
   SWektor<double,3> przesun(p);
 
   double kat = 45;
-  
-  for(int i=0; i<8;i++)
+   
+  for(int i = 0; i < 8; i++)
     {
       cin >> tab[i];
-    }
-  Prostopadloscian pr(O1, tab, srod, orient);
+    };
+  Dron pr(O1, tab, srod, orient);
+
+  wait4key();
+  pr.rysuj();
+  wait4key();
+  pr.ruch(8, 70);
+  wait4key();
+  pr.ruch(13, -40);
+  wait4key();
+  /*
   pr.rysuj();
   wait4key();
   pr.ruch(przesun);
@@ -36,6 +46,7 @@ int main(){
   wait4key();
   pr.ruch(przesun);
   wait4key();
+  */
   return 0;
 }
 

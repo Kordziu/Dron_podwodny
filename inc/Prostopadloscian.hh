@@ -1,5 +1,6 @@
 #ifndef PROSTO_HH
 #define PROSTO_HH
+
 #include "Bryla.hh"
 #include "Wektor.hh"
 #include "MacierzOb.hh"

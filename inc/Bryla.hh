@@ -1,7 +1,6 @@
 #ifndef BRYLA_HH
 #define BRYLA_HH
 #include "IObiektRysowalny.hh"
-//#include "Wektor3D.hh"
 #include "MacierzOb.hh"
 
 using std::vector;
@@ -17,10 +16,10 @@ public:
   virtual void rysuj() = 0;
   virtual ~Bryla(){}
   
-  void ruch(SWektor<double,3> & przesuniecie)
+  void ruch(SWektor<double,3> & w_ruchu)
   {
     Obiekt->erase_shape(index);
-    srodek = srodek + (orientacja * przesuniecie);
+    srodek = srodek + (orientacja * w_ruchu);
     rysuj();
   };
   
