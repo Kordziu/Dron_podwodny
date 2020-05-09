@@ -41,35 +41,34 @@ int main()
   plik.close();
   Dron D(Obiekt, tab, srod, orient);
   D.rysuj();
-    
-      
-      while(wybor!='k')
-	
-	{
-	  interfejs_drona();
-	  cin >> wybor;
-	  switch(wybor)
+  
+	  while(wybor!='k')
 	    {
-	    case 'r':
-	      cout << "Podaj odleglosc na jaką ma polecieć dron: ";
-	      cin >> droga;
-	      cout << "\nPodaj kąt pod jakim dron ma polecieć: ";
-	      cin >> kat;
-	      D.ruch(droga, kat);
-	      break;
-	    case 'o':
-	      cout << "Podaj kąt o jaki ma się obrócić dron: ";
-	      cin >> kat;
-	      D.obrot(kat);
-	      break;
-	    case 'k':
-	      cout << "Program zostanie zamknięty" << endl;
-	      return 0;
-	    default:
-	      cerr << "Opcja spoza menu";
-	    }
-	};
-      
-      return 0;
+	      interfejs_drona();
+	      cin >> wybor;
+	      switch(wybor)
+		{
+		case 'r':
+		  cout << "Podaj odleglosc na jaką ma polecieć dron: ";
+		  cin >> droga;
+		  cout << "\nPodaj kąt pod jakim dron ma polecieć: ";
+		  cin >> kat;
+		  D.ruch(droga, kat);
+		  break;
+		case 'o':
+		  cout << "Podaj kąt o jaki ma się obrócić dron: ";
+		  cin >> kat;
+		  D.obrot(kat);
+		  break;
+		case 'k':
+		  cout << "Program zostanie zamknięty" << endl;
+		  return 0;
+		default:
+		  cerr << "Opcja spoza menu";
+		}
+	    };
+	  
+	  return 0;
 }
+
 
