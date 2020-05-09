@@ -12,7 +12,7 @@ public:
   
   void ruch(double odleglosc, double kat)
   {
-    double radian = 3.14 * kat / 180;
+    double radian = (3.14 * kat) / 180;
     double t_ruchu[3]; //Tablica do wektora ruchu
     t_ruchu[0] = odleglosc * sin(radian); //Przesunięcie w kier x
     t_ruchu[1] = 0;                       //Przesunięcie w kier y
@@ -28,5 +28,16 @@ public:
       }    
   };
 
+  void obrot(double kat) //wokół osi OZ
+  {   
+    double dzielnik = abs(10*kat);
+    double kat_podzielony;
+    kat_podzielony = kat/dzielnik;
+    for(int i = 0; i < dzielnik; i++)
+      {
+	Bryla::obrot(kat_podzielony);
+      }
+  };
+  
 };
 #endif

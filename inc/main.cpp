@@ -13,40 +13,56 @@ void wait4key() {
   } while(std::cin.get() != 'n');
 }
 
-int main(){  
-  drawNS::APIGnuPlot3D * O1 = new drawNS::APIGnuPlot3D(-100,100,-100,100,-100,100,-1);
-  SWektor<double,3> tab[8];
-  SWektor<double,3> srod;
-  MacierzOb orient;
-  
-  double p[3]={3,3,3};
-  SWektor<double,3> przesun(p);
+void interfejs_drona()
+{
+  cout << endl << "wybierz opcję" << endl;
+  cout << "r - ruch drona"<< endl;
+  cout << "o - obrot drona" << endl;
+  cout << "k - koniec programu" << endl;
+}
 
-  double kat = 45;
-   
+int main()
+{  
+  drawNS::APIGnuPlot3D * Obiekt = new drawNS::APIGnuPlot3D(-20,20,-20,20,-20,20,-1);
+  SWektor<double,3> tab[8];
+  SWektor<double,3> srod; // domyslnie 0 0 0
+  MacierzOb orient; // domyslnie jednostkowa
+  char wybor;
+  double droga;
+  double kat;
+  
   for(int i = 0; i < 8; i++)
     {
       cin >> tab[i];
     };
-  Dron pr(O1, tab, srod, orient);
+  Dron D(Obiekt, tab, srod, orient);
+  D.rysuj();
 
-  wait4key();
-  pr.rysuj();
-  wait4key();
-  pr.ruch(8, 70);
-  wait4key();
-  pr.ruch(13, -40);
-  wait4key();
-  /*
-  pr.rysuj();
-  wait4key();
-  pr.ruch(przesun);
-  wait4key();
-  pr.obrot(kat);
-  wait4key();
-  pr.ruch(przesun);
-  wait4key();
-  */
-  return 0;
+  do
+    {
+      interfejs_drona();
+      cin >> wybor;
+      switch(wybor)
+      {
+      case 'r':
+	cout << "Podaj odleglosc na jaką ma polecieć dron: ";
+	cin >> droga;
+	cout << "\nPodaj kąt pod jakim dron ma polecieć: ";
+	cin >> kat;
+	D.ruch(droga, kat);
+	break;
+      case 'o':
+	  cout << "Podaj kąt o jaki ma się obrócić dron: ";
+	  cin >> kat;
+	  D.obrot(kat);
+	  break;
+      case 'k':
+	cout << "Program zostanie zamknięty" <<endl;
+      default:
+	cerr << "Opcja spoza menu";
+      }
+    }while(wybor!='k');
+  
+return 0;
 }
 

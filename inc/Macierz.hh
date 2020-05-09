@@ -100,6 +100,17 @@ public:
       }
     return wynik;
   };
+
+  /////////////// Macierz / liczba ///////////////
+  Macierz operator / (const double liczba) const
+  {
+    Macierz wynik;
+    for(int i = 0; i < Swymiar; i++)
+    {
+      wynik[i] = tab[i] / liczba;
+    }
+    return wynik;
+  };
   
   /////////////// Przeciążenie operatorów == != ///////////////
   bool operator == (const Macierz & m1) const
