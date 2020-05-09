@@ -14,9 +14,9 @@ public:
   {
     double radian = (3.14 * kat) / 180;
     double t_ruchu[3]; //Tablica do wektora ruchu
-    t_ruchu[0] = odleglosc * sin(radian); //Przesunięcie w kier x
+    t_ruchu[2] = odleglosc * sin(radian); //Przesunięcie w kier x
     t_ruchu[1] = 0;                       //Przesunięcie w kier y
-    t_ruchu[2] = odleglosc * cos(radian); //Przesunięcie w kier z
+    t_ruchu[0] = odleglosc * cos(radian); //Przesunięcie w kier z
     SWektor<double, 3> w_ruchu(t_ruchu);
     
     w_ruchu = w_ruchu / 500;
