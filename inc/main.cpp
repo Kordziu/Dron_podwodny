@@ -42,9 +42,9 @@ int main()
   Dron D(Obiekt, tab, srod, orient);
   D.rysuj();
     
-      interfejs_drona();
       while(wybor!='k')
 	{
+	  interfejs_drona();
 	  cin >> wybor;
 	  switch(wybor)
 	    {
