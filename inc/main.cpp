@@ -75,6 +75,7 @@ int main()
   D.rysuj();
   
 	  while(wybor!='k')
+
 	    {
 	      interfejs_drona();
 	      cin >> wybor;
