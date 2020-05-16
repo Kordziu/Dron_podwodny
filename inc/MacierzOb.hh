@@ -7,15 +7,19 @@ class MacierzOb: public Macierz<double,3> {
   public:
   MacierzOb(){tab[0][0] = 1; tab[1][1] = 1; tab[2][2] = 1;};
 
-  //MacierzOb(const Macierz<double,3> & m){if(m.wyznacznik != 1 ||};
-  
-  MacierzOb operator = (const Macierz<double,3> m)
+  MacierzOb(const Macierz<double,3> m):Macierz<double,3>(m)
   {
-    for(int i = 0; i<3; i++){
-      tab[i] = m[i];
-    }
-    return *this;
+    if(m.wyznacznik() != 1 || m.transpozycja() * m != m * m.transpozycja())
+      {cerr << "Bledna macierz obrotu";}
   };
+  
+  //MacierzOb operator = (const Macierz<double,3> m)
+  // {
+  //  for(int i = 0; i<3; i++){
+  //    tab[i] = m[i];
+  //  }
+  //  return *this;
+  // };
 
    void obrotz(double kat) //wokół osi OZ
   {
