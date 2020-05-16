@@ -5,6 +5,7 @@
 #include "Prostopadloscian.hh"
 #include "Wektor.hh"
 #include "Dron.hh"
+#include "Plaszczyzna.hh"
 
 using namespace std;
 
@@ -24,22 +25,53 @@ void interfejs_drona()
 
 int main()
 {
-  drawNS::APIGnuPlot3D * Obiekt = new drawNS::APIGnuPlot3D(-20,20,-20,20,-20,20,-1);
+  drawNS::APIGnuPlot3D * Obiekt = new drawNS::APIGnuPlot3D(-30,30,-30,30,-30,35,-1);
   SWektor<double,3> tab[8];
+  SWektor<double,3> tab_wir[12];
+  SWektor<double,3> tab_woda[49];
+  SWektor<double,3> tab_dno[49];
   SWektor<double,3> srod; // domyslnie 0 0 0
   MacierzOb orient; // domyslnie jednostkowa
   char wybor;
   double droga;
   double kat;
   ifstream plik;
-  
+
+  // Wczytanie wektorów dna
+  plik.open("dno.dat");
+  for(int i = 0; i < 49; i++)
+    {
+      plik >> tab_dno[i];
+    };
+  plik.close();
+  // Wczytanie wektorów tafli wody
+  plik.open("Woda.dat");
+  for(int i = 0; i < 49; i++)
+    {
+      plik >> tab_woda[i];
+    };
+  plik.close();
+  // Wczytanie wektorów korpusu drona
   plik.open("data.dat");
   for(int i = 0; i < 8; i++)
     {
       plik >> tab[i];
     };
   plik.close();
-  Dron D(Obiekt, tab, srod, orient);
+  // Wczytanie wektorów wirników
+  plik.open("datawir.dat");
+    for(int i = 0; i < 12; i++)
+    {
+      plik >> tab_wir[i];
+    };
+  plik.close();
+
+  //Narysowanie dna, tafli wody i drona
+  Plaszczyzna dno(Obiekt, tab_dno);
+  Plaszczyzna woda(Obiekt,tab_woda);
+  dno.rysuj();
+  woda.rysuj();
+  Dron D(Obiekt, tab, tab_wir, srod, orient);
   D.rysuj();
   
 	  while(wybor!='k')
@@ -62,7 +94,7 @@ int main()
 		  break;
 		case 'k':
 		  cout << "Program zostanie zamknięty" << endl;
-		  return 0;
+		  exit(1);
 		default:
 		  cerr << "Opcja spoza menu";
 		}

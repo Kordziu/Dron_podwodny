@@ -1,0 +1,37 @@
+#ifndef WIRNIK_HH
+#define WIRNIK_HH
+
+#include<iostream>
+#include "Graniastoslup6.hh"
+
+using namespace std;
+using std::vector;
+
+class Wirnik : public Graniasto6{
+protected:
+  MacierzOb orientacja_wzgl_drona;
+public:
+  Wirnik(drawNS::APIGnuPlot3D * Obiekt, SWektor<double,3> *tab, SWektor<double,3> srodek, MacierzOb & m1): Graniasto6(Obiekt,tab,srodek,m1), orientacja_wzgl_drona() {};
+
+  void obrot_wir(double kat) //Obrót wirnika wokół własnej osi
+  {
+    usun();
+    orientacja_wzgl_drona.obrotx(kat);
+  };
+
+  void rysuj(const SWektor<double,3> & srodek_wirnika)
+  {
+    SWektor<double,3> temp_tab[12];
+    MacierzOb temp;
+    temp.obroty(90);
+    for(int i = 0; i < 12; i++)
+      {
+	temp_tab[i] = srodek_wirnika + orientacja * (orientacja_wzgl_drona * (temp * wierzcholki[i]));
+      }
+	index = Obiekt->draw_polyhedron(vector<vector<drawNS::Point3D>>{{temp_tab[0],temp_tab[1],temp_tab[2],temp_tab[3],temp_tab[4],temp_tab[5]},{temp_tab[6],temp_tab[7],temp_tab[8],temp_tab[9],temp_tab[10],temp_tab[11]}}, "blue");
+
+  };
+  
+};
+
+#endif

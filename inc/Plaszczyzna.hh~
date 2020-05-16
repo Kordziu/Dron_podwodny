@@ -1,0 +1,14 @@
+#ifndef PLASZCZYZNA_HH
+#define PLASZCZYZNA_HH
+#include "IObiektRysowalny.hh"
+
+using std::vector
+
+class Plaszczyzna : public IObiektRysowalny {
+protected:
+  vector<vector<>>
+
+
+
+};
+#endif
