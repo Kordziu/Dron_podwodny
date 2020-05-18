@@ -9,7 +9,7 @@ class MacierzOb: public Macierz<double,3> {
 
   MacierzOb(const Macierz<double,3> m):Macierz<double,3>(m)
   {
-    if(m.wyznacznik() != 1 || m.transpozycja() * m != m * m.transpozycja())
+    if(m.wyznacznik() < 0.99 || m.wyznacznik() > 1.01 || m.transpozycja() * m != m * m.transpozycja())
       {cerr << "Bledna macierz obrotu";}
   };
   
