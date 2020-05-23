@@ -7,13 +7,38 @@
 
 using namespace std;
 
-class Dron : public Prostopadloscian{
+/*!
+ * \file Dron.hh
+ * Plik zawiera klasę oraz funkcje drona
+ */
+
+/*!
+ * \brief Dron
+ * Klasa reprezentuje drona złożonego z prostopadłościanu (korpusu) i dwóch graniastosłupów sześciokątnych (wirników)
+ */
+class Dron : public Prostopadloscian {
 protected:
+  /*!
+   * \brief Wirniki drona
+   */
   Wirnik wirnik1;
   Wirnik wirnik2;
 public:
+  /*!
+   * \brief Konstruktor drona
+   * \param Obiekt - okno gnuplota (scena)
+   * \param tab8 - tablica wierzchołków korpusu drona
+   * \param tab12 - tablica wierzchołków wirników
+   * \param srodek - srodek drona
+   * \param m1 - macierz orientacji drona
+   */
   Dron(drawNS::APIGnuPlot3D * Obiekt, SWektor<double,3> *tab8, SWektor<double,3> *tab12, SWektor<double,3> srodek, MacierzOb &m1): Prostopadloscian(Obiekt, tab8, srodek, m1), wirnik1(Obiekt, tab12, srodek, m1), wirnik2(Obiekt, tab12, srodek, m1){};
-  
+
+  /*!
+   * \brief Animowana funkcja ruchu
+   * \param odleglosc - Odległość na jaką ma polecieć dron
+   * \param kat = Kąt pod jakim ma polecieć dron (w stopniach)
+   */
   void ruch(double odleglosc, double kat)
   {
     double radian = (3.14 * kat) / 180;
@@ -38,6 +63,10 @@ public:
       }    
   };
 
+  /*!
+   * \brief Animowana funkcja obrotu drona
+   * \param kat - Kąt o jaki ma obrócić się dron wokół osi OZ
+   */
   void obrot(double kat) //wokół osi OZ
   {   
     double dzielnik = abs(5*kat);
@@ -54,6 +83,10 @@ public:
       }
   };
 
+  /*!
+   * \brief Funkcja odpowiadająca za rysowanie drona
+   */
+  
   void rysuj()
   {
     wirnik1.rysuj(srodek + orientacja * ((wierzcholki[0] + wierzcholki[4]) * 0.5)); //narysowanie wirnika ze środkiem na połowie długości tylnej krawędzi drona

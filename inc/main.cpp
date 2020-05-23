@@ -84,12 +84,12 @@ int main()
 		case 'r':
 		  cout << "Podaj odleglosc na jaką ma polecieć dron: ";
 		  cin >> droga;
-		  cout << "\nPodaj kąt pod jakim dron ma polecieć: ";
+		  cout << "\nPodaj kąt (w stopniach) pod jakim dron ma polecieć: ";
 		  cin >> kat;
 		  D.ruch(droga, kat);
 		  break;
 		case 'o':
-		  cout << "Podaj kąt o jaki ma się obrócić dron: ";
+		  cout << "Podaj kąt (w stopniach) o jaki ma się obrócić dron: ";
 		  cin >> kat;
 		  D.obrot(kat);
 		  break;
