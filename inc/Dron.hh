@@ -70,6 +70,7 @@ public:
   void obrot(double kat) //wokół osi OZ
   {   
     double dzielnik = abs(5*kat);
+    double kat_wirnika = 15;
     double kat_podzielony;
     kat_podzielony = kat/dzielnik;
     for(int i = 0; i < dzielnik; i++)
@@ -78,6 +79,8 @@ public:
 	wirnik2.usun();
 	wirnik1.obrot(kat_podzielony); //Obrót wirnika razem z dronem
 	wirnik2.obrot(kat_podzielony); //Obrót wirnika razem z dronem
+	wirnik1.obrot_wir(kat_wirnika); //Obrót wirnika wokół własnej osi
+	wirnik2.obrot_wir(kat_wirnika); //Obrót wirnika wokół własnej osi
 	Prostopadloscian::obrot(kat_podzielony);
 	rysuj();
       }
