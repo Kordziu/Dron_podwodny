@@ -136,7 +136,20 @@ int main()
 			case 'o':
 			  cout << "Podaj kąt (w stopniach) o jaki ma się obrócić dron: ";
 			  cin >> kat;
-			  nr_drona[numer]->obrot(kat);
+			  double dzielnik = abs(5*kat);
+
+			  for(int i = 0; i < dzielnik; i++)
+			    {
+			      
+			      nr_drona[numer]->obrot(kat/dzielnik);
+			      for(int j = 0; j < 3; j++)
+				{
+				  if(nr_przeszkody[j]->czy_kolizja(*nr_drona[numer]))
+				    {
+				      break;
+				    }
+				}
+			    }
 			  break;
 			case 'k':
 			  cout << "Program zostanie zamknięty" << endl;

@@ -4,6 +4,7 @@
 #include<iostream>
 #include "Prostopadloscian.hh"
 #include "Wirnik.hh"
+#include "Przeszkoda.hh"
 
 using namespace std;
 
@@ -16,11 +17,12 @@ using namespace std;
  * \brief Dron
  * Klasa reprezentuje drona złożonego z prostopadłościanu (korpusu) i dwóch graniastosłupów sześciokątnych (wirników)
  */
-class Dron : public Prostopadloscian {
+class Dron : public Prostopadloscian, public Przeszkoda{
 protected:
   /*!
    * \brief Wirniki drona
    */
+  double promien;
   Wirnik wirnik1;
   Wirnik wirnik2;
 public:
@@ -32,8 +34,14 @@ public:
    * \param srodek - srodek drona
    * \param m1 - macierz orientacji drona
    */
-  Dron(drawNS::APIGnuPlot3D * Obiekt, SWektor<double,3> *tab8, SWektor<double,3> *tab12, SWektor<double,3> srodek, MacierzOb &m1): Prostopadloscian(Obiekt, tab8, srodek, m1), wirnik1(Obiekt, tab12, srodek, m1), wirnik2(Obiekt, tab12, srodek, m1){};
+  Dron(drawNS::APIGnuPlot3D * Obiekt, SWektor<double,3> *tab8, SWektor<double,3> *tab12, SWektor<double,3> srodek, MacierzOb &m1): Prostopadloscian(Obiekt, tab8, srodek, m1), wirnik1(Obiekt, tab12, srodek, m1), wirnik2(Obiekt, tab12, srodek, m1)
+  {
+    promien = 2;
+  };
+  
+  double zwroc_promien()const {return promien;};
 
+  SWektor<double,3> zwroc_srodek()const {return srodek;};
   /*!
    * \brief Animowana funkcja ruchu
    * \param odleglosc - Odległość na jaką ma polecieć dron
@@ -71,19 +79,14 @@ public:
   {   
     double dzielnik = abs(5*kat);
     double kat_wirnika = 15;
-    double kat_podzielony;
-    kat_podzielony = kat/dzielnik;
-    for(int i = 0; i < dzielnik; i++)
-      {
 	wirnik1.usun();
 	wirnik2.usun();
-	wirnik1.obrot(kat_podzielony); //Obrót wirnika razem z dronem
-	wirnik2.obrot(kat_podzielony); //Obrót wirnika razem z dronem
+	wirnik1.obrot(kat); //Obrót wirnika razem z dronem
+	wirnik2.obrot(kat); //Obrót wirnika razem z dronem
 	wirnik1.obrot_wir(kat_wirnika); //Obrót wirnika wokół własnej osi
 	wirnik2.obrot_wir(kat_wirnika); //Obrót wirnika wokół własnej osi
-	Prostopadloscian::obrot(kat_podzielony);
+	Prostopadloscian::obrot(kat);
 	rysuj();
-      }
   };
 
   /*!
