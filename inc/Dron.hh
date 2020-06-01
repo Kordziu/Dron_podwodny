@@ -1,7 +1,7 @@
 #ifndef DRON_HH
 #define DRON_HH
 
-#include<iostream>
+#include <iostream>
 #include "Prostopadloscian.hh"
 #include "Wirnik.hh"
 #include "Przeszkoda.hh"
@@ -36,7 +36,7 @@ public:
    */
   Dron(drawNS::APIGnuPlot3D * Obiekt, SWektor<double,3> *tab8, SWektor<double,3> *tab12, SWektor<double,3> srodek, MacierzOb &m1): Prostopadloscian(Obiekt, tab8, srodek, m1), wirnik1(Obiekt, tab12, srodek, m1), wirnik2(Obiekt, tab12, srodek, m1)
   {
-    promien = 2;
+    promien = 6;
   };
   
   double zwroc_promien()const {return promien;};
@@ -57,9 +57,9 @@ public:
     t_ruchu[0] = odleglosc * cos(radian); //Przesunięcie w kier z
     SWektor<double, 3> w_ruchu(t_ruchu);
     
-    w_ruchu = w_ruchu / 500;
-    for(int i = 0; i < 500; i++)
-      {
+    w_ruchu = w_ruchu / 200;
+    //for(int i = 0; i < 200; i++)
+    //{
 	Obiekt->erase_shape(index);
 	srodek = srodek + (orientacja * w_ruchu);
 	wirnik1.usun();
@@ -68,7 +68,7 @@ public:
 	wirnik2.obrot_wir(kat_wirnika); //Obrót wirnika wokół własnej osi
 
 	rysuj();
-      }    
+	//}    
   };
 
   /*!
@@ -77,7 +77,7 @@ public:
    */
   void obrot(double kat) //wokół osi OZ
   {   
-    double dzielnik = abs(5*kat);
+    
     double kat_wirnika = 15;
 	wirnik1.usun();
 	wirnik2.usun();
@@ -100,5 +100,22 @@ public:
     Prostopadloscian::rysuj();
   };
   
+  bool czy_kolizja(const Dron & dron)const
+  {
+    if(srodek == dron.zwroc_srodek())
+      {return false;}
+    else
+      {
+	if((srodek - dron.zwroc_srodek()).dlugosc() < promien)
+	  {
+	    cout << "Zatrzymanie - kolizja z dronem\n";
+	    return true;
+	  }
+	return false;
+      }
+	return false;
+      
+  };
+ 
 };
 #endif

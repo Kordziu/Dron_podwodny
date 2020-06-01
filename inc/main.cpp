@@ -7,14 +7,10 @@
 #include "Dron.hh"
 #include "Plaszczyzna.hh"
 #include "Przeszkoda_prosto.hh"
+#include "dno.hh"
+#include "woda.hh"
 
 using namespace std;
-
-void wait4key() {
-  do {
-    std::cout << "\n Press a key to continue..." << std::endl;
-  } while(std::cin.get() != 'n');
-}
 
 void interfejs_drona()
 {
@@ -89,10 +85,11 @@ int main()
   plik.close();
 
   //Narysowanie dna, tafli wody i drona
-  Plaszczyzna dno(Obiekt, tab_dno);
-  Plaszczyzna woda(Obiekt,tab_woda);
-  dno.rysuj();
-  woda.rysuj();
+  //Dno dno(Obiekt, tab_dno);
+  //Woda woda(Obiekt,tab_woda);
+  //dno.rysuj();
+  //woda.rysuj();
+  
   vector<shared_ptr<Dron>> nr_drona
   {
     make_shared<Dron>(Obiekt, tab, tab_wir, srod_drona[0], orient),
@@ -103,15 +100,25 @@ int main()
   nr_drona[1]->rysuj();
   nr_drona[2]->rysuj();
 
-  vector<shared_ptr<Przeszkoda_p>> nr_przeszkody
+  vector<shared_ptr<Przeszkoda>> nr_przeszkody
   {
     make_shared<Przeszkoda_p>(Obiekt, tab_prz[0], srod_przeszkod[0], orient),
       make_shared<Przeszkoda_p>(Obiekt, tab_prz[1], srod_przeszkod[1], orient),
-      make_shared<Przeszkoda_p>(Obiekt, tab_prz[2], srod_przeszkod[2], orient)
+      make_shared<Przeszkoda_p>(Obiekt, tab_prz[2], srod_przeszkod[2], orient),
+      make_shared<Dno>(Obiekt, tab_dno),
+      make_shared<Woda>(Obiekt,tab_woda)
       };
+  
+  for(int i = 0; i < 3; i++)
+    {
+      nr_przeszkody.push_back(nr_drona[i]);
+    };
   nr_przeszkody[0]->rysuj();
   nr_przeszkody[1]->rysuj();
   nr_przeszkody[2]->rysuj();
+  nr_przeszkody[3]->rysuj();
+  nr_przeszkody[4]->rysuj();
+  double dzielnik;
   
 	  while(wybor!='k' || numer!= 999)
 
@@ -131,22 +138,33 @@ int main()
 			  cin >> droga;
 			  cout << "\nPodaj kąt (w stopniach) pod jakim dron ma polecieć: ";
 			  cin >> kat;
-			  nr_drona[numer]->ruch(droga, kat);
+
+			  for(int i = 0; i < 200; i++)
+			    {
+			      nr_drona[numer]->ruch(droga, kat);
+			      for(int j = 0; j < 6; j++)
+				{
+				  if(nr_przeszkody[j]->czy_kolizja(*nr_drona[numer]))
+				    {
+				      i = 200;
+				    }
+				}
+			    }
 			  break;
 			case 'o':
 			  cout << "Podaj kąt (w stopniach) o jaki ma się obrócić dron: ";
 			  cin >> kat;
-			  double dzielnik = abs(5*kat);
+			  dzielnik = abs(5*kat);
 
 			  for(int i = 0; i < dzielnik; i++)
 			    {
 			      
 			      nr_drona[numer]->obrot(kat/dzielnik);
-			      for(int j = 0; j < 3; j++)
+			      for(int j = 0; j < 6; j++)
 				{
 				  if(nr_przeszkody[j]->czy_kolizja(*nr_drona[numer]))
 				    {
-				      break;
+				      i = dzielnik;
 				    }
 				}
 			    }

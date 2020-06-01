@@ -118,7 +118,7 @@ public:
     double dlugosc = 0;
       for(int i = 0; i < Swymiar; i++)
       {
-        dlugosc = dlugosc + kwadrat(tab[i]);
+        dlugosc = dlugosc + std::pow(tab[i],2);
       }
     return sqrt(dlugosc);
   };

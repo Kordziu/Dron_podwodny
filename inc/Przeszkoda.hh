@@ -1,7 +1,7 @@
 #ifndef PRZESZKODA_HH
 #define PRZESZKODA_HH
 
-#include "Dron.hh"
+class Dron;
 
 class Przeszkoda
 {
