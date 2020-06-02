@@ -14,12 +14,22 @@ public:
   bool czy_kolizja(const Dron &dron)const
   {
     double promien = dron.zwroc_promien();
-    //cout << "Promien: "<< promien << endl;
-    //cout << (srodek - dron.zwroc_srodek()).dlugosc() << endl;
-    if((srodek - dron.zwroc_srodek()).dlugosc() < promien)
+    SWektor<double,3> tmp[8];
+    // Sprawdzamy czy parametr Z środka drona mieści się między Z górnego i dolnego wierzchołka powiększonych o promień drona i analogicznie z parametrami X i Y
+    for(int i = 0; i < 8; i++)
       {
-	cout << "Zatrzymanie - kolizja z klockiem\n";
-	return true;
+	tmp[i] = srodek + wierzcholki[i];
+      }
+    if(dron.zwroc_srodek()[2] > tmp[0][2] - promien && dron.zwroc_srodek()[2] < tmp[4][2] + promien)
+      {
+	if(dron.zwroc_srodek()[1] > tmp[0][1] - promien && dron.zwroc_srodek()[1] < tmp[2][1] + promien)
+	  {
+	    if(dron.zwroc_srodek()[0] > tmp[0][0] - promien && dron.zwroc_srodek()[0] < tmp[1][0] + promien)
+	      {
+		cout << "Zatrzymanie - kolizja z klockiem\n";
+		return true;
+	      }
+	  }
       }
     return false;
   };

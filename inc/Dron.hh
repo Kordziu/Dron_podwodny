@@ -36,7 +36,7 @@ public:
    */
   Dron(drawNS::APIGnuPlot3D * Obiekt, SWektor<double,3> *tab8, SWektor<double,3> *tab12, SWektor<double,3> srodek, MacierzOb &m1): Prostopadloscian(Obiekt, tab8, srodek, m1), wirnik1(Obiekt, tab12, srodek, m1), wirnik2(Obiekt, tab12, srodek, m1)
   {
-    promien = 6;
+    promien = 5;
   };
   
   double zwroc_promien()const {return promien;};
@@ -106,7 +106,7 @@ public:
       {return false;}
     else
       {
-	if((srodek - dron.zwroc_srodek()).dlugosc() < promien)
+	if((srodek - dron.zwroc_srodek()).dlugosc() < promien + dron.zwroc_promien())
 	  {
 	    cout << "Zatrzymanie - kolizja z dronem\n";
 	    return true;

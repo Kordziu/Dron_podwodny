@@ -18,6 +18,7 @@ void interfejs_drona()
   cout << "r - ruch drona"<< endl;
   cout << "o - obrot drona" << endl;
   cout << "k - koniec programu" << endl;
+  cout << "d - zmiana drona" << endl;
 }
 
 int main()
@@ -119,75 +120,93 @@ int main()
   nr_przeszkody[3]->rysuj();
   nr_przeszkody[4]->rysuj();
   double dzielnik;
+  //////////////////////////////////////////////////////////////////////
+  //                    KONIEC WCZYTYWANIA OBIEKTÓW                   //
+  //////////////////////////////////////////////////////////////////////
+
+  bool poprawny_nr = false;
+  while(!poprawny_nr)
+     {
+        cout << "Podaj numer drona do sterowania {0,1,2}: ";
+        cin >> numer;
+	if(numer >= 0 && numer <= 2)
+	  {
+	    poprawny_nr = true;
+	  }
+	else
+	  {
+	    cerr << "Nie ma takiego drona\n";
+	  }
+    }  
   
-	  while(wybor!='k' || numer!= 999)
-
-	    {
-	      cout << "Podaj numer drona, którym chcesz latać (0,1,2) lub wciśnij 999 aby zakończyć działanie programu\n";
-	      cin >> numer;
-	      if(numer != 999 )
-		{
-		  if(numer > -1 && numer < 3)
-		    {
-		      interfejs_drona();
-		      cin >> wybor;
-		      switch(wybor)
-			{
-			case 'r':
-			  cout << "Podaj odleglosc na jaką ma polecieć dron: ";
-			  cin >> droga;
-			  cout << "\nPodaj kąt (w stopniach) pod jakim dron ma polecieć: ";
-			  cin >> kat;
-
-			  for(int i = 0; i < 200; i++)
-			    {
-			      nr_drona[numer]->ruch(droga, kat);
-			      for(int j = 0; j < 6; j++)
-				{
-				  if(nr_przeszkody[j]->czy_kolizja(*nr_drona[numer]))
-				    {
-				      i = 200;
-				    }
-				}
-			    }
-			  break;
-			case 'o':
-			  cout << "Podaj kąt (w stopniach) o jaki ma się obrócić dron: ";
-			  cin >> kat;
-			  dzielnik = abs(5*kat);
-
-			  for(int i = 0; i < dzielnik; i++)
-			    {
-			      
-			      nr_drona[numer]->obrot(kat/dzielnik);
-			      for(int j = 0; j < 6; j++)
-				{
-				  if(nr_przeszkody[j]->czy_kolizja(*nr_drona[numer]))
-				    {
-				      i = dzielnik;
-				    }
-				}
-			    }
-			  break;
-			case 'k':
-			  cout << "Program zostanie zamknięty" << endl;
-			  exit(1);
-			  break;
-			default:
-			  cerr << "Opcja spoza menu";
-			}
-		    }
-		  else
-		    cout << "Nie ma takiego drona \n";
-		}
-	      else
-		{
-	        cout << "Program zostanie zamknięty" << endl;
-	        exit(1);
-		}
-	    };
-	  
-	  return 0;
+  while(wybor!='k')
+      {
+	interfejs_drona();
+	cin >> wybor;
+	switch(wybor)
+	  {
+	  case 'r':
+	    cout << "Podaj odleglosc na jaką ma polecieć dron: ";
+	    cin >> droga;
+	    cout << "\nPodaj kąt (w stopniach) pod jakim dron ma polecieć: ";
+	    cin >> kat;
+	    
+	    for(int i = 0; i < 200; i++)
+	      {
+		nr_drona[numer]->ruch(droga, kat);
+		for(int j = 0; j < 6; j++)
+		  {
+		    if(nr_przeszkody[j]->czy_kolizja(*nr_drona[numer]))
+		      {
+			i = 200;
+		      }
+		  }
+	      }
+	    break;
+	  case 'o':
+	    cout << "Podaj kąt (w stopniach) o jaki ma się obrócić dron: ";
+	    cin >> kat;
+	    dzielnik = abs(5*kat);
+	    
+	    for(int i = 0; i < dzielnik; i++)
+	      {
+		
+		nr_drona[numer]->obrot(kat/dzielnik);
+		for(int j = 0; j < 6; j++)
+		  {
+		    if(nr_przeszkody[j]->czy_kolizja(*nr_drona[numer]))
+		      {
+			i = dzielnik;
+		      }
+		  }
+	      }
+	    break;
+	  case 'd':
+	    poprawny_nr = false;
+	    while(!poprawny_nr)
+	      {
+		cout << "Podaj numer drona do sterowania {0,1,2}: ";
+		cin >> numer;
+		if(numer >= 0 && numer <= 2)
+		  {
+		    poprawny_nr = true;
+		  }
+		else
+		  {
+		    cerr << "Nie ma takiego drona\n";
+		  }
+	      }  
+	    break;
+	  case 'k':
+	    cout << "Program zostanie zamknięty" << endl;
+	    exit(1);
+	    break;
+	    
+	  default:
+	    cerr << "Opcja spoza menu";
+	  }
+      }
+return 0;
 }
 
 
