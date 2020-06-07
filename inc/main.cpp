@@ -20,6 +20,12 @@ void interfejs_drona()
   cout << "k - koniec programu" << endl;
   cout << "d - zmiana drona" << endl;
 }
+template <typename Styp, int Swymiar>
+  int SWektor<Styp,Swymiar>::stworzone_wektory;
+template <typename Styp, int Swymiar>
+  int SWektor<Styp,Swymiar>::widoczne_wektory;
+  int IObiektRysowalny::liczba_obiektow;
+  int IObiektRysowalny::stworzone_obiekty;
 
 int main()
 {
@@ -141,6 +147,10 @@ int main()
   
   while(wybor!='k')
       {
+	cout << "\nAktualna liczba wektorów: " << SWektor<double,3>::zwroc_aktualne() << endl;
+	cout << "Całkowita liczba stworzonych wektorów: " << SWektor<double,3>::zwroc_stworzone() << endl;
+	cout << "Aktualna liczba stworzonych obiektów: " << IObiektRysowalny::zwroc_obiekty() << endl;
+	cout << "Całkowita liczba stworzonych obiektów: " << IObiektRysowalny::zwroc_stworzone_obiekty() << endl;
 	interfejs_drona();
 	cin >> wybor;
 	switch(wybor)

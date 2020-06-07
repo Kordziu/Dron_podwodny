@@ -11,15 +11,42 @@ template <typename Styp, int Swymiar>
 class SWektor {
 protected:
   Styp tab[Swymiar];
-
-public:
-  //////////// Konstruktor bezparametryczny i parametryczny ////////////
-  SWektor()
-  {for (int i = 0; i < Swymiar; i++){tab[i] = 0.0;}};
-  explicit SWektor(Styp * tab)
-  {for (int i = 0; i < Swymiar; i++){this->tab[i] = tab[i];}};
-  SWektor(double x, double y, double z){tab[0]=x; tab[1]=y; tab[2]=z;}; //dla 3D
+  static int stworzone_wektory;
+  static int widoczne_wektory;
   
+public:
+  ///////// Konstruktor bezparametryczny, parametryczny i kopiujący /////////
+  SWektor()
+  {
+    for (int i = 0; i < Swymiar; i++){tab[i] = 0.0;}
+    stworzone_wektory++;
+    widoczne_wektory++;
+  };
+  explicit SWektor(Styp * tab)
+  {
+    for (int i = 0; i < Swymiar; i++){this->tab[i] = tab[i];}
+    stworzone_wektory++;
+    widoczne_wektory++;
+  };
+  SWektor(double x, double y, double z)
+  {
+    tab[0]=x; tab[1]=y; tab[2]=z;
+    stworzone_wektory++;
+    widoczne_wektory++;
+  }; //dla 3D
+  SWektor(const SWektor &w)
+  {
+    for(int i = 0; i < Swymiar; i++){tab[i] = w[i];}
+    stworzone_wektory++;
+    widoczne_wektory++;
+  };
+
+  //////// Destruktor ////////
+  ~SWektor(){widoczne_wektory--;};
+
+  //////// Zwracanie ilości wektorów ////////
+  static int zwroc_aktualne(){return widoczne_wektory;};
+  static int zwroc_stworzone(){return stworzone_wektory;};
   /////////////// dodaj i podstaw ///////////////
   const SWektor & operator += (const SWektor & w1)
   {
